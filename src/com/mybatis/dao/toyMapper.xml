@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mybatis 映射文件 -->
+<!-- sql 语句不区分大小写 -->
+<!-- select 节点：查询操作 -->
+
+     <mapper namespace="com.mybatis.dao.toyMapper">
+	  <resultMap type="com.mybatis.pojo.Toy" id="toy-result">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="price" column="price" />
+		<result property="saleDate" column="sale_date"/>
+	</resultMap>
+
+<select id="findByName" resultMap="toy-result">
+select * from TOY
+ where 1=1
+<if test="name !=null and name !=''">
+and name like concat('%',concat(#{name},'%'))
+</if>
+</select>
+
+
+	<!-- 分页 头部 -->
+	<!-- <sql id="pagerHead">
+		select * from (
+		select row_number() over(
+	</sql> -->
+
+	<!-- 排序 -->
+	<!-- <sql id="orderBy">
+		order by
+		<choose>
+			<when test="sort == 'ename'">ename</when>
+			<when test="sort == 'hiredate'">hiredate</when>
+			<when test="sort == 'sal'">sal</when>
+			<otherwise>empno</otherwise>
+		</choose>
+		<if test="order == 'asc'">asc</if>
+		<if test="order == 'desc'">desc</if>
+	</sql> -->
+	<!-- 查询条件 -->
+	<!-- <sql id="whereCase">
+		<where>
+			1=1
+			<if test="ename != null and ename != ''">
+				and ename like concat('%',concat(#{ename},'%'))
+			</if>
+			<if test="sal !=null and sal > 0">
+				and sal=#{sal}
+			</if>
+		</where>
+	</sql> -->
+	<!-- 分页底部 -->
+	<!-- <sql id="pagerFoot"> -->
+		<!-- 纯字符串 -->
+<!-- <![CDATA[)  where rn > #{pageno} and rn < = #{pagesize}]]> -->
+	<!-- </sql> -->
+	<!-- 分页 sql 语句 -->
+	<!-- <select id="findByPager" resultMap="emp-result">
+		<include refid="pagerHead"></include>
+		<include refid="orderBy"></include>
+		) rn ,e.* from emp e
+		<include refid="whereCase"></include>
+		<include refid="pagerFoot"></include>
+	</select> -->
+
+	<!-- 统计 sql 语句 -->
+	<!-- <select id="getTotal" resultType="int">
+		select count (empno) from emp
+		<include refid="whereCase"></include>
+	</select> -->
+</mapper>
+
